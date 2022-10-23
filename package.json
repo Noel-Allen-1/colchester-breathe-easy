@@ -9,9 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
+    "classnames": "^2.3.2",
+    "font-awesome": "^4.7.0",
+    "html-react-parser": "^3.0.4",
+    "mongodb": "^4.11.0",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-bootstrap": "^2.5.0",
+    "react-dom": "18.2.0",
+    "react-protected-mailto": "^1.0.3",
+    "react-router-dom": "^6.4.2",
+    "reactstrap": "^9.1.4",
+    "rxjs": "^7.5.7"
   },
   "devDependencies": {
     "eslint": "8.23.1",
