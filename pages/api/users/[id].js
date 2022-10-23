@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 
-import { apiHandler } from '../../helpers/api';
-import { usersRepo, omit } from '../../helpers/api';
+import { apiHandler, usersRepo, omit  } from '../../helpers/api';
 
 export default apiHandler({
     get: getById,
