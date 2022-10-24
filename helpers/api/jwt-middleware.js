@@ -1,4 +1,4 @@
-import { expressjwt, ExpressJwtRequest } from "express-jwt";
+const { expressjwt: expressJwt } = require('express-jwt');
 const util = require('util');
 import getConfig from 'next/config';
 
