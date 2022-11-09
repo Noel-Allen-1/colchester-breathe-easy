@@ -1,10 +1,16 @@
+
 import Head from 'next/head'
 import Image from 'next/future/image'
 import React, { useEffect, useState } from "react"
 const parse = require('html-react-parser');
 import LogoBanner from "./common/logo-banner";
 import styles from '../styles/Home.module.css';
+import Link from 'next/link'
+import {getCurrentUser, getRole} from "./api/auth";
+import HomeCard from "../components/HomeCard";
 let dispc = false;
+
+
 function showPage(){
   dispc = true;
 }
@@ -13,15 +19,18 @@ export default function Home({ Component, pageProps }) {
   useEffect(() => {
     (
       async () => {
-        const results = await fetch('/api/home');
+        const results = await fetch('./api/home');
+       
 
         const resultsJson = await results.json();
-   
-        setCbehomes(resultsJson);
+        
+        await setCbehomes(resultsJson);
       }
     )();
   }, []);
+
   const css = { maxWidth: '100%', height: 'auto', margin: '0 auto', display: 'block' }
+ 
   return (
     <React.Fragment>
       
@@ -66,28 +75,28 @@ export default function Home({ Component, pageProps }) {
               <div className="row home-block">
                 <div className="col-12">
                   
-                  {cbehomes &&
-                    cbehomes.map((m) => (
+                  {/* {Object.values(cbehomes) &&
+                    cbehomes.map((m) => ( */}
                       <React.Fragment
-                        key={m._id}
+                        key={cbehomes._id}
                         
                       >
                         <div>
                           <div className="">
-                            <h1>{parse(m.cbeHomeHead.replace(/(<([^>]+)>)/gi, ""))}</h1>
-                            {parse(m.cbeHomeBody)}
-                            <Image src={m.cbeHomeImage} alt="" width="908" height="679" style={css} layout="responsive" />
+                          {cbehomes.length === 0 ? (<h2>No added articles</h2>):
+                           cbehomes.message.map((p)=>(<div  key={p._id}><HomeCard cbehomes={p} /></div>))}
                           </div>
+                         
 
-                          {/* {auth.getRole() && auth.getCurrentUser() && (
+                          {getRole() && getCurrentUser() && (
                             <React.Fragment>
                               <button className="btn btn-primary col-6 col-xs-12">
                                 <Link
                                   className="edit-btn"
-                                  to={`/home/${m._id}`}
+                                  href={`/home/${cbehomes._id}`}
                                 >
                                   <i
-                                    class="fa fa-pencil-square-o fa-2x"
+                                    className="fa fa-pencil-square-o fa-2x"
                                     aria-hidden="true"
                                   ></i>
                                 </Link>
@@ -99,10 +108,10 @@ export default function Home({ Component, pageProps }) {
                                 <i className="fa fa-trash fa-2x"></i>
                               </button>
                             </React.Fragment>
-                          )} */}
+                          )}
                         </div>
                       </React.Fragment>
-                    ))}
+                    {/* ))} */}
                 </div>
               </div>
             </div>

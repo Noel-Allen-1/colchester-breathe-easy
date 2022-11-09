@@ -1,12 +1,14 @@
+import { userService } from '../../services';
 
 
 
 export function getCurrentUser(){
-    return "user";
+    
+    return userService.userValue;
 }
 export function get(){
-    return "Hi";
+    return userService.userValue;
 }
 export function getRole(){
-    return "admin"
+    return userService.userValue
 }

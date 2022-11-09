@@ -1,20 +1,22 @@
-import { connectToDatabase } from "../../lib/connectToDatabase";
+import { connectToDatabase } from "/lib/mongodb";
 
 export default async function handler(request, response){
     try{
-        const { mongoClient } = await connectToDatabase();
-        const db = mongoClient.db("heroku_02d2h7l5");
-        const collection = db.collection("cbehomes");
-        const results = await collection
+        let {db} = await connectToDatabase();
+        let cbehomes = await db.collection('cbehomes')
             .find({})
+            .toArray()
+            console.log(cbehomes);
+        return response.json({
             
-            .limit(10)
-            .toArray();
-            console.log(results);
-            response.status(200).json(results);
-    }catch (e){
-        console.error(e);
-        response.status(500).json(e);
-
+            message:JSON.parse(JSON.stringify(cbehomes)),
+            success:true
+        })   
+    }catch(e){
+        return response.json({
+           message: new Error(e).message,
+            success:false 
+        });
+        
     }
 }
