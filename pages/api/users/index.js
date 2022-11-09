@@ -1,4 +1,4 @@
-import { apiHandler } from 'helpers/api';
+import { apiHandler } from '/helpers/api';
 //const users = require('data/users.json');
 const {connectToDatabase} = require('../../../lib/mongodb');
 
