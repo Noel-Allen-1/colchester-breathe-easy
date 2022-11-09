@@ -1,6 +1,8 @@
 import { connectToDatabase } from "/lib/mongodb";
 
 export default async function handler(request, response){
+
+    
     try{
         let {db} = await connectToDatabase();
         let cbehomes = await db.collection('cbehomes')

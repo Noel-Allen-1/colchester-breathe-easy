@@ -165,17 +165,17 @@ function NavBarNew({ Component, pageProps }){
                   {!getCurrentUser() && (
                     <React.Fragment>
                       <DropdownItem>
-                        <NavLink path="/login" onClick={hideNav}>
-                          Login
+                        <NavLink path="/account/login" onClick={hideNav} label="Login">
+                          <a>Login</a>
                         </NavLink>
                       </DropdownItem>
                       <DropdownItem>
-                        <NavLink path="/register" onClick={hideNav}>
-                          Registration
+                        <NavLink path="/account/register" onClick={hideNav} label="Registeration">
+                          <a>Registration</a>
                         </NavLink>
                       </DropdownItem>
                       <DropdownItem>
-                        <NavLink path="/download" onClick={hideNav}>
+                        <NavLink path="/download" onClick={hideNav} >
                           Membership Form
                         </NavLink>
                       </DropdownItem>

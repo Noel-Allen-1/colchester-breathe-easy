@@ -1,22 +1,43 @@
-const bcrypt = require('bcryptjs');
+import { connectToDatabase } from "/lib/mongodb";
 
-import { apiHandler, usersRepo } from '../../../helpers/api';
+export default async function handler(request, response){
+ 
+    try{
+        let {db} = await connectToDatabase();
+        let usersin = await request.body;
+        console.log(usersin);
+        
+        switch(request.method){
+            case "GET":
+                response = await db.collection('users')
+                .find({})
+                .toArray()
+            break;
+            case "POST":
+                console.log("posting");
+                const response = await db.collection('users')
+                .insertOne(
+                    JSON.parse(usersin)
+                )
+                return response.json({
+                    message : "Added user successfully",
+                    success: true
+                });
 
-export default apiHandler({
-    post: register
-});
+        }
+       
 
-function register(req, res) {
-    // split out password from user details 
-    const { password, ...user } = req.body;
 
-    // validate
-    if (usersRepo.find(x => x.username === user.username))
-        throw `User with the username "${user.username}" already exists`;
-
-    // hash password
-    user.hash = bcrypt.hashSync(password, 10);    
-
-    usersRepo.create(user);
-    return res.status(200).json({});
+        return response.json({
+            
+            message:JSON.parse(JSON.stringify(usersin)),
+            success:true
+        })   
+    }catch(e){
+        return response.json({
+           message: new Error(e).message,
+            success:false 
+        });
+        
+    }
 }

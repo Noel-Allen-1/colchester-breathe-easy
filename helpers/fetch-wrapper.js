@@ -19,13 +19,15 @@ function get(url) {
     return fetch(url, requestOptions).then(handleResponse);
 }
 
-function post(url, body) {
+function post(body) {
+    console.log(777)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         credentials: 'include',
         body: JSON.stringify(body)
     };
+    console.log(body);
     return fetch(url, requestOptions).then(handleResponse);
 }
 

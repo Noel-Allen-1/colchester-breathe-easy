@@ -1,17 +1,27 @@
 import { apiHandler } from '/helpers/api';
 //const users = require('data/users.json');
 const {connectToDatabase} = require('../../../lib/mongodb');
-
+console.log(77675);
 const ObjectId = require('mongodb').ObjectId;
 
 export default apiHandler(handler);
 
+
+
 function handler(req, res) {
+    console.log(6666);
     switch (req.method) {
         case 'GET':
             return getUsers();
+        break;
+        case 'POST':
+            return register();
+        break;    
         default:
             return res.status(405).end(`Method ${req.method} Not Allowed`)
+    }
+    function register(){
+        console.log("Register");
     }
 
     async function getUsers() {

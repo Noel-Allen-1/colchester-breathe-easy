@@ -14,7 +14,8 @@ export const userService = {
     get userValue () { return userSubject.value },
     login,
     logout,
-    getAll
+    getAll, 
+    register
 };
 
 function login(username, password) {
@@ -36,4 +37,15 @@ function logout() {
 
 function getAll() {
     return fetchWrapper.get(baseUrl);
+}
+
+function register(data ){
+    console.log(baseUrl);
+    return fetchWrapper.post(`${baseUrl}/register`, {data })
+        .then(user => {
+            userSubject.next(user);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
 }
