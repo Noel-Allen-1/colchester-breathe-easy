@@ -3,10 +3,8 @@ import { Container,Row,Col } from "react-bootstrap";
 import {Uploader} from './common/uploader';
 
 
-export default function handler(){
-    return addEdit()
-}
-function addEdit(){
+
+function addEdit({ Component, pageProps }){
 
     const [home, setHome ] = useState([]);
     const [header, setHeader] = useState("");
@@ -69,3 +67,4 @@ function addEdit(){
         </main>
     );
 }
+export default addEdit;
