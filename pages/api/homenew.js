@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { connectToDatabase } from "/lib/mongodb";
 
 export default async function handler(request, response){
+    console.log(666);
     switch(request.method){
         case 'GET':
            return getHome(request, response); 
@@ -24,7 +25,7 @@ export default async function handler(request, response){
 
         try{
             let {db} = await connectToDatabase();
-            let homes = await db.collection('cbehomes')
+            let homes = await db.collection('homes')
                 .find({})
                 .toArray()
             return response.json({
@@ -41,6 +42,10 @@ export default async function handler(request, response){
         }
     }
     async function postHome(request, response){
+        const header = await request.body.header;
+        const body = await request.body.body;
+        const image = await request.body.image;
+        const imageID = await request.body.imageID;
         try{
             let {db} = await connectToDatabase();
             await db.collection('homes')
@@ -62,15 +67,18 @@ export default async function handler(request, response){
         const _id = await request.body._id;
         const header = await request.body.header;
         const body = await request.body.body;
+        const image = await request.body.image;
+        const imageID = await request.body.imageID;
+       
         try{
             let {db} = await connectToDatabase();
             await db.collection('homes')
-            .updateOne({
-                "_id": new ObjectId(_id)
-            },{
+            .insertOne({
                 $set: {
                     'header' : header,
-                    'body' : body
+                    'body' : body,
+                    'image': image,
+                    'imageID': imageID
                     } 
                 }
             )
