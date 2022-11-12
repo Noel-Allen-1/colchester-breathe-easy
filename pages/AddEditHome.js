@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Container,Row,Col } from "react-bootstrap";
 import {Uploader} from './common/uploader';
+
+
 export default function handler(){
+    return addEdit()
+}
+function addEdit(){
 
     const [home, setHome ] = useState([]);
     const [header, setHeader] = useState("");
