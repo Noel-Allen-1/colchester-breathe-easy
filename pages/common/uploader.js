@@ -1,4 +1,4 @@
 import React from "react";
-export function Uploader(inp){
+export default function Uploader(inp){
     return( `Uploader man ${inp}`) ;
 }
