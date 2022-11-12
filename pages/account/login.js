@@ -11,9 +11,9 @@ export default Login;
 
 function Login() {
     
-   
+   const router = useRouter();
     useEffect(() => {
-        const router = useRouter();
+        
         // redirect to home if already logged in
         if (userService.userValue) {
             router.push('/');
