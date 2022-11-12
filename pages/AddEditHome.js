@@ -4,7 +4,7 @@ import {Uploader} from './common/uploader';
 
 
 
-function addEdit({ Component, pageProps }){
+function AddEdit({ Component, pageProps }){
     const [home, setHome ] = useState([]);
     const [header, setHeader] = useState("");
     const [body, setBody] = useState("");
@@ -64,4 +64,4 @@ function addEdit({ Component, pageProps }){
         </main>
     );
 }
-export default addEdit;
+export default AddEdit;
