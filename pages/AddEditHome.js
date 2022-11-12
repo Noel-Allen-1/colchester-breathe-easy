@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container,Row,Col } from "react-bootstrap";
-import {Uploader} from './common/uploader';
+import Uploader from './common/uploader';
 
 
 
