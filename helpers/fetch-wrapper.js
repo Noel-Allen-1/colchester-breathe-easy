@@ -19,8 +19,9 @@ function get(url) {
     return fetch(url, requestOptions).then(handleResponse);
 }
 
-function post(body) {
-    console.log(777)
+function post(url, body) {
+    console.log(7654);
+    console.log(url);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },

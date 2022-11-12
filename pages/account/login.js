@@ -6,9 +6,11 @@ import * as Yup from 'yup';
 
 import { userService } from '../../services';
 
+
 export default Login;
 
 function Login() {
+    
     const router = useRouter();
     useEffect(() => {
         // redirect to home if already logged in
@@ -29,7 +31,7 @@ function Login() {
         return userService.login(username, password)
             .then(() => {
                 const returnUrl = router.query.returnUrl || '/';
-                router.push(returnUrl);
+                router.back();
             })
             .catch(error => {
                 setError('apiError', { message: error });

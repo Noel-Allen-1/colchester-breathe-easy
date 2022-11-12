@@ -26,12 +26,13 @@ function handler(req, res) {
         const user = users.find(u => u.username === username && u.password === password);
         if (!user) throw 'Username or password is incorrect';
         const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, { expiresIn: '7d' });
-    
+        
         return res.status(200).json({
             id: user.id,
             username: user.username,
             firstName: user.firstName,
             lastName: user.lastName,
+            role: user.role,
             token
         });
     }

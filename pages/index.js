@@ -1,10 +1,7 @@
 
 import Head from 'next/head'
-import Image from 'next/future/image'
 import React, { useEffect, useState } from "react"
-const parse = require('html-react-parser');
 import LogoBanner from "./common/logo-banner";
-import styles from '../styles/Home.module.css';
 import Link from 'next/link'
 import {getCurrentUser, getRole} from "./api/auth";
 import HomeCard from "../components/HomeCard";

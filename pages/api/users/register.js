@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { connectToDatabase } from "/lib/mongodb";
 
 export default async function handler(request, response){
@@ -5,8 +6,6 @@ export default async function handler(request, response){
     try{
         let {db} = await connectToDatabase();
         let usersin = await request.body;
-        console.log(usersin);
-        
         switch(request.method){
             case "GET":
                 response = await db.collection('users')
@@ -14,7 +13,6 @@ export default async function handler(request, response){
                 .toArray()
             break;
             case "POST":
-                console.log("posting");
                 const response = await db.collection('users')
                 .insertOne(
                     JSON.parse(usersin)
@@ -22,9 +20,12 @@ export default async function handler(request, response){
                 return response.json({
                     message : "Added user successfully",
                     success: true
-                });
+                })
+            break;    
 
         }
+        
+
        
 
 
@@ -33,6 +34,7 @@ export default async function handler(request, response){
             message:JSON.parse(JSON.stringify(usersin)),
             success:true
         })   
+       
     }catch(e){
         return response.json({
            message: new Error(e).message,
@@ -40,4 +42,5 @@ export default async function handler(request, response){
         });
         
     }
+    
 }

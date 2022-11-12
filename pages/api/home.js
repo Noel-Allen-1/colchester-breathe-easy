@@ -8,7 +8,6 @@ export default async function handler(request, response){
         let cbehomes = await db.collection('cbehomes')
             .find({})
             .toArray()
-            console.log(cbehomes);
         return response.json({
             
             message:JSON.parse(JSON.stringify(cbehomes)),

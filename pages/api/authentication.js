@@ -11,7 +11,6 @@ export default async function handler(request, response){
             
             .limit(10)
             .toArray();
-            console.log(users);
             response.status(200).json(users);
     }catch (e){
         console.error(e);

@@ -73,6 +73,7 @@ function Register(){
             body:JSON.stringify(post)
         });
         let data = await response.json();
+       
         if(data.success){
             setFirstname('');
             setLastname('');
@@ -85,6 +86,7 @@ function Register(){
         }
 
 
+
     }
     return(
         <Container>
@@ -93,6 +95,7 @@ function Register(){
                     <div className="card">
                     <h4 className="card-header">Colchester Breathe Easy Registration Page</h4>
                         <div className="card-body">
+                            <div>{message}</div>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-group">
                                 <label>Firstname</label>
@@ -121,7 +124,7 @@ function Register(){
                             </div>
                             <button disabled={formState.isSubmitting} className="btn btn-primary">
                                 {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                Login
+                                Register
                             </button>
                             {errors.apiError &&
                                 <div className="alert alert-danger mt-3 mb-0">{errors.apiError?.message}</div>
