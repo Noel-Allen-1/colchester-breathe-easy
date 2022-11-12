@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container,Row,Col } from "react-bootstrap";
+import Image from "next/image";
 
 const UploadState = {
   IDLE: 1,
@@ -85,7 +86,8 @@ export default function Home() {
                 <span className="block py-2 px-3 text-green-500 text-center">
                   Uploaded!
                 </span>
-                <img className="w-full" src={imgUrl} alt="Uploaded image" />
+                {/* <img className="w-full" src={imgUrl} alt="Uploaded image" /> */}
+                <Image  className="w-full" src={imgUrl} alt="Uploaded image" title="Uploaded image" width="200" height={200}/>
               </div>
             )}
           </div>

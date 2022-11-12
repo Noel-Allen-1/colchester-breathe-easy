@@ -74,7 +74,7 @@ function WelcomeForm({ Component, pageProps }) {
             </ul>
            {welcome!=={}  ? 
                 (<p>NO message yet</p>) :
-                welcome.map((m)=><div><h4>{m.header}</h4><p>{m.body}</p></div>)
+                welcome.map((m)=><div key={m._id}><h4>{m.header}</h4><p>{m.body}</p></div>)
            }
            ..{welcome.length}..
 
