@@ -5,7 +5,6 @@ import {Uploader} from './common/uploader';
 
 
 function addEdit({ Component, pageProps }){
-
     const [home, setHome ] = useState([]);
     const [header, setHeader] = useState("");
     const [body, setBody] = useState("");
@@ -15,14 +14,12 @@ function addEdit({ Component, pageProps }){
     useEffect(() => {
         (
           async () => {
-            const results = await fetch('/api/homenew', {
-          method: "GET"
-        });
+            const results = await fetch('/api/homenew');
 
         
             const resultsJson = await results.json();
             const newRes = resultsJson.message[0];
-            const nh = 
+            
             
             await setHome(newRes);
             await setHeader(newRes.cbeHomeHead);
