@@ -1,14 +1,20 @@
 import { connectToDatabase } from "/lib/mongodb";
 
 export default async function handler(request, response){
+    console.log(request.query)
+    const postid = request.query;
     try{
         let {db} = await connectToDatabase();
-        let cbehomecontacts = await db.collection('cbehomecontacts')
-            .find({})
-            .toArray()
+        let cbehomes = await db.collection('todos', {
+           
+                method: 'DELETE',
+                body: postid
+            
+        })
+        
         return response.json({
             
-            message:JSON.parse(JSON.stringify(cbehomecontacts)),
+            message:JSON.parse(JSON.stringify(cbehomes)),
             success:true
         })   
     }catch(e){

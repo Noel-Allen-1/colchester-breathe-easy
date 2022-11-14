@@ -49,7 +49,7 @@ const publishPost = async (cbehomeid) =>{
     </Col>
     <Col className='bg-tint' xs={12} md={6}>{parse(cbehomes.cbeHomeBody)}</Col>
     <Col className='bg-tint' xs={12} md={6}>
-        <Image src={cbehomes.cbeHomeImage} alt="" title="" width="900" height="200" />
+        <Image src={cbehomes.cbeHomeImage} alt="" title="" width="900" height="550" />
 
         {/* <img src={cbehomes.cbeHomeImage} alt="" title=""/> */}
     <LogoBanner/>

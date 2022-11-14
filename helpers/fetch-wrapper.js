@@ -20,15 +20,12 @@ function get(url) {
 }
 
 function post(url, body) {
-    console.log(7654);
-    console.log(url);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         credentials: 'include',
         body: JSON.stringify(body)
     };
-    console.log(body);
     return fetch(url, requestOptions).then(handleResponse);
 }
 

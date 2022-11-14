@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { userService } from '../services';
+import 'tailwindcss/tailwind.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import "font-awesome/css/font-awesome.css";
 import '../styles/style.css';
