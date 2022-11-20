@@ -38,7 +38,8 @@ function MyApp({ Component, pageProps }) {
 //       setAuthorized(true);
 //   }
 // }
-  return <div id="root"><NavBarNew /><Component {...pageProps} /><Footer /></div>
+  return (<div id="root"><NavBarNew /><Component {...pageProps} /><Footer />
+      </div>)
 }
 
 export default MyApp

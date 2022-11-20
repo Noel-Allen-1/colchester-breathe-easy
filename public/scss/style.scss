@@ -334,6 +334,7 @@ h4 {
   @include siteBG-WhiteTint(1);
   background-image: url("/assets/images/footer-bg.png") !important;
   background-repeat: no-repeat !important;
+
   .col-foot-common {
     .image-pan {
       img {
@@ -380,6 +381,7 @@ main.container-fluid {
         @include siteBG-WhiteTint(0.6);
         padding: 20px;
         width: 100%;
+        min-height: 100%;
       }
     }
     .gallery-pan {

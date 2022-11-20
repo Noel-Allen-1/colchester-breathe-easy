@@ -12,10 +12,7 @@ import {
 } from "reactstrap";
 
 import {getCurrentUser, getRole} from "../api/auth";
-let winh=0, winw=0, collapsed=false, auth=true;
-function updateDimensions(){
-  this.setState({ winw: window.innerWidth, winh: window.innerHeight });
-};
+
 
 export const NavLink = (props) => {
 
@@ -47,15 +44,30 @@ function useWindowSize() {
   }, []); 
   return windowSize;
 }
-function hideNav() {
-  var element = document.getElementById("basic-navbar-nav");
-  element.classList.remove("show");
-  this.setState({ collapsed: true });
-}
+
 
 
 function NavBarNew({ Component, pageProps }){
+
   const size = useWindowSize();
+
+const [winw, setWinw] = useState(0);
+const [winh, setWinh] = useState(0);
+
+const [collapsed, setCollapsed] = useState(false);
+
+function hideNav() {
+  var element = document.getElementById("basic-navbar-nav");
+  element.classList.remove("show");
+  setCollapsed(!collapsed);
+}
+
+function updateDimensions(){
+  setWinw(window.innerWidth);
+  setWinh(window.innerHeight);
+  //this.setState({ winw: window.innerWidth, winh: window.innerHeight });
+};
+
   return (
     <div>
     <Navbar bg="light" expand="lg" className="row">

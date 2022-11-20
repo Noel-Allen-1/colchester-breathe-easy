@@ -1,11 +1,16 @@
 import { connectToDatabase } from "/lib/mongodb";
 
+import Head from 'next/head'
 import { Fragment } from 'react'
-import TodoItem from '../components/todoItem/TodoItem'
-const Home = (props) => {  
+import TodoItem from '../components/todoItem/todoItem'
+const Todo = (props) => {  
   return (
     <Fragment>
-   
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+          rel="stylesheet" />
+      </Head>
       
       <div className="container mx-auto px-4 sm:px-8">
         <table className="min-w-full leading-normal">
@@ -37,22 +42,22 @@ const Home = (props) => {
   )
 }
 export async function getStaticProps(context){
-//   const client = await MongoClient.connect("{mongo connection string}")
-//   const todoCollection = client.db().collection("todos")
-let {db} = await connectToDatabase();
+  // const client = await MongoClient.connect("{mongo connection string}")
+  // const todoCollection = client.db().collection("todos")
+  // const todoArray = await todoCollection.find().toArray()
+  let {db} = await connectToDatabase();
 let todoCollection = await db.collection('todos')
   const todoArray = await todoCollection.find().toArray()
-  
   return {
     props:{
       todos : todoArray.map(todo => ({
-        heading: todo.heading,
-        description: todo.description,
-        done: todo.done,
+        heading: todo.heading?todo.heading:"",
+        description: todo.description?todo.description:"",
+        done: todo.done?todo.done:"",
         id: todo._id.toString()
       }))
     },
     revalidate: 60
   }
 }
-export default Home
+export default Todo

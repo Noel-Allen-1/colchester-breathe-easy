@@ -10,14 +10,14 @@ import Image from 'next/image';
 const parse = require('html-react-parser');
 
 
-export default function HomeCard({cbehomes}) {
+export default function HomeCard({home}) {
 const router = useRouter();
-const deletePost = async (cbehomeid) =>{   
+const deletePost = async (id) =>{   
     
     try{
         await fetch('/api/home',{
             method: 'DELETE',
-            body: cbehomeid
+            body: id
         })
 
         return router.push(router.asPath)
@@ -26,11 +26,11 @@ const deletePost = async (cbehomeid) =>{
     }
 }
 
-const publishPost = async (cbehomeid) =>{
+const publishPost = async (id) =>{
     try {
         await fetch('/api/home', {
             method:'PUT',
-            body: cbehomeid
+            body: id
         });
         return router.push(router.asPath)
 
@@ -45,13 +45,13 @@ const publishPost = async (cbehomeid) =>{
   return (
     <Row>
     <Col className='col-12 bg-tint'>
-      {parse(cbehomes.cbeHomeHead)}
+      {home.heading}
     </Col>
-    <Col className='bg-tint' xs={12} md={6}>{parse(cbehomes.cbeHomeBody)}</Col>
+    <Col className='bg-tint' xs={12} md={6}>{parse(home.description)}</Col>
     <Col className='bg-tint' xs={12} md={6}>
-        <Image src={cbehomes.cbeHomeImage} alt="" title="" width="900" height="550" />
+        <Image src={home.image} alt="" title="" width="900" height="600" />
 
-        {/* <img src={cbehomes.cbeHomeImage} alt="" title=""/> */}
+        {/* <img src={home.image} alt="" title=""/> */}
     <LogoBanner/>
     </Col>
 

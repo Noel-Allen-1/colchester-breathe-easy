@@ -380,6 +380,8 @@ main.container-fluid {
         @include siteBG-WhiteTint(0.6);
         padding: 20px;
         width: 100%;
+        height: auto;
+        min-height: 100%;
       }
     }
     .gallery-pan {
