@@ -47,7 +47,7 @@ let homecontactCollection = await db.collection('homecontacts')
       about : aboutArray.map(about => ({
         heading: about.heading ? about.heading : "",
         description: about.description ? about.description : "",
-        done: about.done ? bout.done : false,
+        done: about.done ? about.done : false,
         id: about._id ? about._id.toString() : ""
       })),
       homecontacts : homecontactArray.map(hc => ({
