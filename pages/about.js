@@ -45,15 +45,15 @@ let homecontactCollection = await db.collection('homecontacts')
   return {
     props:{
       about : aboutArray.map(about => ({
-        heading: about.heading,
-        description: about.description,
-        done: about.done,
-        id: about._id.toString()
+        heading: about.heading ? about.heading : "",
+        description: about.description ? about.description : "",
+        done: about.done ? bout.done : false,
+        id: about._id ? about._id.toString() : ""
       })),
       homecontacts : homecontactArray.map(hc => ({
-        phone: hc.phone,
-        email: hc.email,
-        id: hc._id.toString()
+        phone: hc.phone ? hc.phone: "",
+        email: hc.email ? hc.email : "",
+        id: hc._id ? hc._id.toString():""
       }))
     },
     revalidate: 60
