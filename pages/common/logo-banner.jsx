@@ -1,4 +1,4 @@
-
+import { connectToDatabase } from "/lib/mongodb";
 import Image from 'next/future/image'
 import Link from 'next/image';
 import React, { useEffect, useState } from "react"
