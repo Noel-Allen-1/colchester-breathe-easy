@@ -1253,3 +1253,22 @@ body {
   position: absolute;
   width: 180px;
 }
+.image-container {
+    position: relative !important;
+    width: 100%!important;
+
+  span {
+    position: relative !important;
+    height: 100% !important;
+    width: 100%!important;
+    .image {
+      object-fit: contain;
+      width: 100% !important;
+      position: relative !important;
+      height: 100% !important;
+      width: 100%!important;
+    }
+  }
+
+  
+}

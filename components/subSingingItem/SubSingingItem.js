@@ -2,27 +2,35 @@ import { Fragment, useState, useRef } from "react"
 import { useRouter } from 'next/router'
 import { Editor } from '@tinymce/tinymce-react';
 import {getCurrentUser, getRole} from "/pages/api/auth"
-import { Container, Row, Col, Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
-
+import { Container, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Image from "next/image"
 import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
 const parse = require('html-react-parser');
 
-function AboutItem(props) {
-    const { id, heading, description, image, imageID, done } = props
+function SubSingingItem(props) {
+    const { id, heading, description, image, imageID, video } = props
+    const [openModal, setOpenModal] = useState("");
     const [show, setShow] = useState(false);
     const [header, setHeader]= useState(heading);
     const [descrip, setDescrip]= useState(description);
-    const [openModal, setOpenModal] = useState("");
+    const [imagett, setImagett] = useState(image);
     const [nv, setNv] = useState(header);
     const router = useRouter();
     const auth = getCurrentUser() && getRole();
-    //delete about:
+    //delete subsinging:
     const headingRef = useRef(heading);
     const bodyRef = useRef(description);
     const [ref, setRef] = useState(headingRef);
-   
+    // const log = async () => {
+    //   if (bodyRef.current) {
+    //     const description = await bodyRef.current.getContent();
+    //    await  setDescrip(description);
+    //         console.log(descrip);
+    //   }
+    // };
+
+
     const handleOpenForm = (id, nv, refin) => {
         setNv(nv)
         setOpenModal(id);
@@ -33,32 +41,6 @@ function AboutItem(props) {
         setOpenModal('');
         //router.push("./updateEventForm");
     }
-
-    const handleMore = async(m) => {
-        // const data = {
-        //     heading: header,
-        //     description: descrip,
-        
-        // }
-        // console.log(data);
-        // router.push({
-        //     pathname:`/event/EventUpdateForm/${m}`,
-        //     method: "POST"
-        // })
-        // router.push({
-        //     pathname:`/event/EventUpdateForm/${m}`,
-        //     query: JSON.stringify(data)
-        // })
-        //router.push(`../aboutItem/EventUpdateForm/${m}`);
-        // const resp = await fetch(`aboutItem/EventUpdateForm/${id}`, {
-        //     method: "POST",
-        //     body: JSON.stringify(data)
-        // })
-        // .then(res => console.log("SUCCESS:: " + res.json()))
-        // .catch(e => console.log("ERROR " + e))
-        // router.push("/");
-    }
-
     const handleSave = async ()=>{
         let descripttt, headerttt;
 
@@ -74,11 +56,12 @@ function AboutItem(props) {
                     console.log(descripttt);
             }
         const data = {
-            heading: headerttt,
+            heading: header,
             description: descripttt,
             done: done
         }
-        const resp = await fetch(`api/about/update/${id}`, {
+        console.log(data);
+        const resp = await fetch(`api/subsinging/update/${id}`, {
             method: "PUT",
             body: JSON.stringify(data)
         })
@@ -102,8 +85,8 @@ function AboutItem(props) {
     }
 
 
-    const deleteAbout = async (aboutId) =>{
-        const resp = await fetch(`/api/about/about/${aboutId}`, {
+    const deleteSinging = async (subSingingId) =>{
+        const resp = await fetch(`/api/subsinging/subsinging/${subSingingId}`, {
             method: 'DELETE'
           })
           .then(res => console.log("SUCCESS:: "+ res.json()))
@@ -111,16 +94,7 @@ function AboutItem(props) {
           
           router.push("/")
     }
-    //togle about:
-    const togleDone = async (aboutId, done) =>{
-        
-        const resp = await fetch(`/api/about/about/${aboutId}/${done}`, {
-          method: 'GET'
-        })
-        .then(res => console.log("SUCCESS:: "+ res.json()))
-        .catch(e => console.log("ERROR:" + e))
-        router.push("/about")
-    }
+
     const update = () => {
 
         const id = ref.current.id;
@@ -133,7 +107,16 @@ function AboutItem(props) {
         }
 
     }
-    
+    //togle subsinging:
+    const togleDone = async (subSingingId, done) =>{
+        
+        const resp = await fetch(`/api/subsinging/subsinging/${subSingingId}/${done}`, {
+          method: 'GET'
+        })
+        .then(res => console.log("SUCCESS:: "+ res.json()))
+        .catch(e => console.log("ERROR:" + e))
+        router.push("/subsinging")
+    }
     const ev = {
         selector: 'textarea#format-html5',
         height:200,
@@ -168,50 +151,70 @@ function AboutItem(props) {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
     
     };
+    
     return (
+        
         <>
-
-           
-            
-                <Col xxs="12" >
+        <Col  className="">
+                <Modal isOpen={openModal===id} >
+                    <ModalBody>
+                        <ModalHeader onClick={handleCloseForm}>X</ModalHeader>
+                        <ModalBody>
+                        {id}
+                        <Row>
+                        <Col>
+                            <Editor
+                            onInit={(evt, editor) => ref.current = editor}
+                            initialValue={nv}
+                            id={id}
+                            init={ev} />
+                        </Col>
                         
-                   <Fragment>
-                        <div className="home-block event-pan">
-                           <Modal isOpen={openModal===id} >
-                                <ModalBody>
-                                    <ModalHeader onClick={handleCloseForm}>X</ModalHeader>
-                                    <ModalBody>
-                                    {id}
-                                    <Row>
-                                    <Col>
-                                     <Editor
-                                        onInit={(evt, editor) => ref.current = editor}
-                                        initialValue={nv}
-                                        id={id}
-                                        init={ev} />
-                                    </Col>
-                                   
 
-                                    </Row>
-                                        
-                                        <button onClick={update}>Update</button>
-                                    </ModalBody>
-                                    <ModalFooter ModalFooter onClick={handleCloseForm}>X</ModalFooter>
-
-                                </ModalBody>
-                            </Modal>
-                            <div >{parse(heading)}<br></br>
-                            <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button></div>
-                            {image && <Image src={image} alt={heading + " image"} title={heading + " image"} width="172" height="129" style={{margin:"auto"}}/>}
-                           
+                        </Row>
                             
-                            <div>{parse(description)}<br></br><button className="btn btn-primary"  style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, description, bodyRef)}>Edit text</button></div>
-                        </div>
-                    </Fragment>
-               </Col>
-            
+                            <button onClick={update}>Update</button>
+                        </ModalBody>
+                        <ModalFooter ModalFooter onClick={handleCloseForm}>X</ModalFooter>
 
+                    </ModalBody>
+                </Modal>
+            <Container className="container-fluid">
+                <Row className="home-block  justify-content-around">
+                    <Col lg="12" className="exercsie-main-head">
+                        {parse(heading)}
+                        <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Fragment>
+                        <Col sm="12">
+                            {parse(description)}
+                            <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, descrip, bodyRef)}>Edit Body text</button>
+                        </Col>
+
+                    </Fragment>
+                </Row>
+                { image ?
+                    <Row>
+                        <Col>
+                            <div className={'image-container'}>
+                        
+                                {image ?
+                                <Image src={image} alt="" title="" layout="fill" className={'image'} />
+                                    : ""
+                                }
+                                {video!=="" ?
+                                    "Video"
+                                    : ""
+                                }
+
+                            </div>
+                        </Col>
+                    </Row>:""}
+            </Container>
+        </Col>
         </>
     )
 }
-export default AboutItem
+export default SubSingingItem
