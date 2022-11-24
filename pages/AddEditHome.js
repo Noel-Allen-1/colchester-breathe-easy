@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container,Row,Col } from "react-bootstrap";
 import { useRouter } from 'next/router';
-import Uploader from './common/uploader';
+import Uploader from '../components/common/uploader';
 import Image from 'next/image';
 
 function AddEdit({ Component, pageProps }){
