@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import {getCurrentUser, getRole} from "/pages/api/auth"
 import { Container, Row, Col, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import Image from "next/image"
+import YouTube from "react-youtube";
 import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
 const parse = require('html-react-parser');
@@ -156,6 +157,17 @@ function SingingItem(props) {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
     
     };
+    const opts = {
+        height: "390",
+        width: "640",
+        playerVars: {
+          autoplay: 1,
+        }
+    };
+
+    const _onReady = (event) =>{
+        event.target.pauseVideo();
+    }
     
     return (
         <Row>
@@ -205,14 +217,16 @@ function SingingItem(props) {
 
                                 </Fragment>
                             </Row>
-                            { image ?
+                            
                                 <Row>
                                     <Col>
                                         <div className={'image-container'}>
-                                        <Image src={image} alt={heading} title={heading} layout="fill" className={'image'} />
+                                       { image ? 
+                                            <Image src={image} alt={heading} title={heading} layout="fill" className={'image'} />: ""}
+                                         { video ?   <YouTube videoId={video} opts={opts} onReady={_onReady} /> : ""}
                                         </div>
                                     </Col>
-                                </Row>:""}
+                                </Row>
                         </Container>
                     </div>
                 <div className="col-lg-2 col-md-12"></div>

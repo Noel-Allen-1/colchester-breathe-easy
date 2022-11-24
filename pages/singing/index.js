@@ -80,18 +80,18 @@ let homecontactCollection = await db.collection('homecontacts')
   return {
     props:{
       singing : singingArray.map(singing => ({
-        heading: singing.heading,
+        heading: singing.heading ? singing.heading : "",
         description: singing.description?singing.description:"",
-        image: singing.image,
-        imageID: singing.imageID,
+        image: singing.image ? singing.image: "",
+        imageID: singing.imageID ? singing.imageID :"",
         id: singing._id.toString()
       })),
       subsinging : subSingingArray.map(subsing => ({
-        heading: subsing.heading,
+        heading: subsing.heading ? subsing.heading : "",
         description: subsing.description?subsing.description:"",
-        image: subsing.image,
-        imageID: subsing.imageID,
-        video: subsing.video,
+        image: subsing.image ? subsing.image : "",
+        imageID: subsing.imageID ? subsing.imageID :"",
+        video: subsing.video ? subsing.video : "",
         id: subsing._id.toString()
       })),
       homecontacts : homecontactArray.map(hc => ({

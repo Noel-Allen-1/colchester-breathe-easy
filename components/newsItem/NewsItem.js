@@ -9,10 +9,11 @@ import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
 import Uploader from '../common/uploader';
 import { async } from "rxjs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const parse = require('html-react-parser');
 
-function SubSingingItem(props) {
+
+
+function NewsItem(props) {
     const { id, heading, description, image, imageID, video } = props
     const [openModal, setOpenModal] = useState("");
     const [openModalB, setOpenModalB] = useState("");
@@ -26,11 +27,13 @@ function SubSingingItem(props) {
     const [nv, setNv] = useState(header);
     const router = useRouter();
     const auth = getCurrentUser() && getRole();
-    //delete subsinging:
+    //delete news:
     const videoRef = useRef(video);
     const headingRef = useRef(heading);
     const bodyRef = useRef(description);
     const [ref, setRef] = useState(headingRef);
+    const [file, setFile] = useState('../../public/assets/images/BK31_First_steps_v4_2021.pdf');
+    const [numPages, setNumPages] = useState(null);
     // const log = async () => {
     //   if (bodyRef.current) {
     //     const description = await bodyRef.current.getContent();
@@ -94,7 +97,7 @@ function SubSingingItem(props) {
 
         }
         
-        const resp = await fetch(`api/subsinging/update/${id}`, {
+        const resp = await fetch(`api/news/update/${id}`, {
             method: "PUT",
             body: JSON.stringify(data)
         })
@@ -126,7 +129,7 @@ function SubSingingItem(props) {
             video: video
 
         }
-        const resp = await fetch(`api/subsinging/update/${id}`, {
+        const resp = await fetch(`api/news/update/${id}`, {
             method: "PUT",
             body: JSON.stringify(data)
         })
@@ -143,7 +146,7 @@ function SubSingingItem(props) {
 
 
     const deleteSinging = async (subSingingId) =>{
-        const resp = await fetch(`/api/subsinging/subsinging/${subSingingId}`, {
+        const resp = await fetch(`/api/news/${subSingingId}`, {
             method: 'DELETE'
           })
           .then(res => console.log("SUCCESS:: "+ res.json()))
@@ -156,7 +159,6 @@ function SubSingingItem(props) {
 
         const id = ref.current.id;
         const target = ref.current.getContent();
-        alert(target);
         if(ref === headingRef){
             alert("heading");
         }else{
@@ -164,15 +166,15 @@ function SubSingingItem(props) {
         }
 
     }
-    //togle subsinging:
+    //togle news:
     const togleDone = async (subSingingId, done) =>{
         
-        const resp = await fetch(`/api/subsinging/subsinging/${subSingingId}/${done}`, {
+        const resp = await fetch(`/api/news/news/${subSingingId}/${done}`, {
           method: 'GET'
         })
         .then(res => console.log("SUCCESS:: "+ res.json()))
         .catch(e => console.log("ERROR:" + e))
-        router.push("/subsinging")
+        router.push("/news")
     }
     const ev = {
         selector: 'textarea#format-html5',
@@ -208,6 +210,9 @@ function SubSingingItem(props) {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
     
     };
+
+
+
     const opts = {
         
         height: "auto",
@@ -217,9 +222,19 @@ function SubSingingItem(props) {
         }
     };
 
-    const _onReady = (event) =>{
+    const _onReady = async (event) =>{
         event.target.pauseVideo();
+        
     }
+    const stripHtml =(imp)=>{
+        return imp.replace(/<[^>]*>?/gm, '');
+    }
+    const checkString = async (txt) =>{
+        
+    return 99;
+    }
+
+    
     
     return (
         
@@ -263,67 +278,15 @@ function SubSingingItem(props) {
                 </Modal>
             <Container className="container-fluid">
                 <Row className="home-block  justify-content-around">
-                    <Col lg="12" className="exercsie-main-head" style={{ background: "rgba(13, 75, 199, 0.8)", color:"rgba(255,255,255,1)"}}>
-                        <style>
-                            {
-                                `
-                               a{
-                                color: rgba(255,255,255,1);
-                                text-decoration:none;
-                                }
-                                a:hover{
-                                    color:rgba(255,255,255,0.8);
-                                }
-                                `
-                            }
-                        </style>
-                        {parse(heading)}
-                        <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button>
+                    <Col>
+                        <h5>{header.indexOf('href') >-1 ? parse(heading) : parse(heading.replace(/<[^>]*>?/gm, ''))}</h5>
+                        <p>{description.indexOf('href') >-1 ? parse(description) : parse(description.replace(/<[^>]*>?/gm, ''))}</p>
+                        {/* <div className={'image-container'}><Image src={image} alt={heading} title={heading} layout="fill" className={'image'} /></div> */}
                     </Col>
                 </Row>
-                <Row>
-                    <Fragment>
-                        <Col sm="12">
-                            {parse(description)}
-                            <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, descrip, bodyRef)}>Edit Body text</button>
-                        </Col>
-
-                    </Fragment>
-                </Row>
-                    <Row>
-
-                        {/* <Image src={image1} alt="" title="" width="20" height="20" className={'image'} /> */}
-                        <Col>
-                            <div className={'image-container'}>
-                                {image !== ""  ?
-                                <div><Image src={image} alt="" title="" layout="fill" className={'image'} />
-                                </div>
-                                    : ""
-                                }
-
-
-                                {video!=="" ?
-                                    <Fragment>
-                                        <Modal isOpen={openModalB===id}>
-                                            <ModalHeader  onClick={handleCloseFormB}>x</ModalHeader>
-                                            <ModalBody>
-                                            <YouTube videoId={video} opts={opts} onReady={_onReady}  />
-                                            </ModalBody>
-                                            <ModalFooter  onClick={handleCloseFormB}>Close X</ModalFooter>
-                                        </Modal>
-                                        <button className="" style={{ width:"100%", display:"block", textAlign:"center"}}  onClick={()=>handleOpenVideo(id, vide, videoRef)}><i className="fa fa-video-camera fa-3x" aria-hidden="true"></i></button>
-                                    </Fragment>
-                                    : ""
-                                }
-
-                                {auth ? <button onClick={()=>handleOpenPictureUpload(id)}>Add picture</button> : ""}
-                                
-                            </div>
-                        </Col>
-                    </Row>
             </Container>
         </Col>
         </>
     )
 }
-export default SubSingingItem
+export default NewsItem

@@ -11,10 +11,11 @@ const UploadState = {
   };
   Object.freeze(UploadState);
 
-export default function Uploader( {onImage}){
+export default function Uploader( {onImage, onClose}){
     const [uploadState, setUploadState] = useState(UploadState.IDLE);
     const [imgUrl, setImgUrl] = useState("");
     const [data, setData] = useState();
+    const [ni, setNi] = useState("");
     async function handleFormData(e) {
         
         setUploadState(UploadState.UPLOADING);
@@ -33,11 +34,17 @@ export default function Uploader( {onImage}){
         setImgUrl(data.secure_url);
         setUploadState(UploadState.UPLOADED);
       }
-      const handleImg = () => {
+      const handleImg = async () => {
         //const element = document.getElementById("uploadimg");
        //const nimg = element.getElementsByTagName("img");
        const imgname =  decodeURIComponent(document.querySelectorAll('#uploadimg img')[0].src);
+       await setNi(data.secure_url);
+       onClose(data.secure_url);
        onImage(data.secure_url);
+      }
+
+     const handleClose = () =>{
+       return onClose(ni);
       }
 
     return(
@@ -78,7 +85,6 @@ export default function Uploader( {onImage}){
                                     type="file"
                                     name="file"
                                     id="image"
-                                    className="hidden"
                                     onChange={handleFormData}
                                 />
                                 </td>
