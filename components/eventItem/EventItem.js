@@ -3,26 +3,37 @@ import { useRouter } from 'next/router'
 import { Editor } from '@tinymce/tinymce-react';
 import {getCurrentUser, getRole} from "/pages/api/auth"
 import { Container, Row, Col, Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image"
+import PdfUploader from "../../components/pdfUpoader"
+import Uploader from '../common/uploader';
 import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
 const parse = require('html-react-parser');
 
 function AboutItem(props) {
-    const { id, heading, description, image, imageID, done } = props
+    const { id, heading, description, image, imageID, video,  pdf } = props
     const [show, setShow] = useState(false);
     const [header, setHeader]= useState(heading);
+    const [openModalC, setOpenModalC] = useState("");
     const [descrip, setDescrip]= useState(description);
     const [openModal, setOpenModal] = useState("");
+    const [image1, setImage] = useState(image);
+    const [imagett, setImagett] = useState(image);
     const [nv, setNv] = useState(header);
+    const [more, setMore] = useState("");
     const router = useRouter();
     const auth = getCurrentUser() && getRole();
     //delete about:
     const headingRef = useRef(heading);
     const bodyRef = useRef(description);
+    const imageRef = useRef(image);
     const [ref, setRef] = useState(headingRef);
    
+    const handleCloseModal = () =>{
+        setMore("");
+    }
     const handleOpenForm = (id, nv, refin) => {
         setNv(nv)
         setOpenModal(id);
@@ -33,9 +44,43 @@ function AboutItem(props) {
         setOpenModal('');
         //router.push("./updateEventForm");
     }
+    const handleCloseFormC = () => {
+        setOpenModalC('');
+        //router.push("./updateEventForm");
+    }
+    const handleOpenPictureUpload =(id, nv, refin)=>{
+        setNv(nv);
+        setOpenModalC(id);
+        setRef(refin);
 
+    }
+    const handleSaveE = async (imag) =>{
+        const data = {
+            heading: header,
+            description: descrip,
+            image: imag,
+            imageID: imageID,
+            video: video,
+            pdf: pdf
+
+        }
+        const resp = await fetch(`api/events/update/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(data)
+        })
+        .then(res => console.log("SUCCESS:: " + res.json()))
+        .catch(e => console.log("ERROR " + e))
+        router.push("/");
+    }
+
+    const handleSaveImage = async (imgData) => {
+        await setImagett(imgData);
+       
+        handleSaveE(imgData);
+    }
     const handleMore = async(m) => {
-        // const data = {
+        setMore(id);
+        // const data = {   
         //     heading: header,
         //     description: descrip,
         
@@ -173,39 +218,62 @@ function AboutItem(props) {
 
            
             
-                <Col xxs="12" >
+                <Col xxs="12" style={{height:"100%"}} >
                         
-                   <Fragment>
-                        <div className="home-block event-pan" style={{textAlign:"center"}}>
+                   <Fragment style={{height:"100%"}}>
+                        <div className="home-block event-pan" style={{textAlign:"center", height:"100%"}}>
+                            <Modal isOpen={openModalC===id} style={{height:"100%"}}>
+                                <ModalHeader onClick={handleCloseFormC} style={{ backgroundColor:"rgba(0, 135, 255, 0.8)", width:"100%", height:"60px", display:"block", textAlign:"right", color:"rgba(255,255,255,1)"}}><span style={{float:"left"}}>Upload picture:</span>X</ModalHeader>
+                                    <ModalBody style={{height:"100%"}}>
+                                        <Row style={{height:"100%"}}>
+                                            <Col style={{height:"100%"}}>
+                                                    <div><Uploader onImage={setImage} onClose={handleSaveImage} /></div>
+                                    
+                                            </Col>
+                                        </Row>
+                                    </ModalBody>
+                                <ModalFooter onClick={handleCloseFormC} style={{backgroundColor:"rgba(0, 135, 255, 0.8)", color:"rgba(255,255,255,1)"}}>X</ModalFooter>  
+                            </Modal>
                            <Modal isOpen={openModal===id} >
                                 <ModalBody>
                                     <ModalHeader onClick={handleCloseForm}>X</ModalHeader>
-                                    <ModalBody>
-                                    {id}
-                                    <Row>
-                                    <Col>
-                                     <Editor
-                                        onInit={(evt, editor) => ref.current = editor}
-                                        initialValue={nv}
-                                        id={id}
-                                        init={ev} />
-                                    </Col>
-                                   
-
-                                    </Row>
-                                        
-                                        <button onClick={update}>Update</button>
-                                    </ModalBody>
+                                        <ModalBody>
+                                        {id}
+                                        <Row>
+                                        <Col>
+                                        <Editor
+                                            onInit={(evt, editor) => ref.current = editor}
+                                            initialValue={nv}
+                                            id={id}
+                                            init={ev} />
+                                        </Col>
+                                        </Row>
+                                            <button onClick={update}>Update</button>
+                                        </ModalBody>
                                     <ModalFooter ModalFooter onClick={handleCloseForm}>X</ModalFooter>
-
                                 </ModalBody>
                             </Modal>
+
+                            <Modal isOpen={more===id} style={{ height:"auto", maxHeight:"80%", display:"block"}}>
+                                <ModalHeader>{parse(heading)} <FontAwesomeIcon icon={faCircleXmark} style={{float:"right"}} onClick={handleCloseModal}/></ModalHeader>
+                                <ModalBody>
+                                    <div className={'image-container'}><Image src={image} alt={parse(heading)} title={parse(heading)} layout="fill" className={'image'}  /></div>
+                                    {parse(description)}
+                                </ModalBody>
+                                <ModalFooter><FontAwesomeIcon icon={faCircleXmark} style={{float:"right"}} onClick={handleCloseModal}/></ModalFooter>
+
+                            </Modal>
                             <div >{parse(heading)}<br></br>
-                            <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button></div>
-                            {image && <Image src={image} alt={heading + " image"} title={heading + " image"} width="172" height="129" style={{margin:"auto"}}/>}
+                            <button className="btn btn-secondary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button></div>
+                            {image && <div className={'image-container'}><Image src={image} alt={heading} title={heading} layout="fill" className={'image'} /></div>}
                            
                             
-                            <div>{parse(description)}<br></br><button className="btn btn-primary"  style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, description, bodyRef)}>Edit text</button></div>
+                            <div>{parse(description)}<br></br>
+                                { auth ?
+                                    <><button className="btn btn-secondary" style={{width:"48%"}}  onClick={()=>handleOpenForm(id, description, bodyRef)}>Edit<br></br>Text</button> <button className="btn btn-secondary" style={{width:"48%"}} onClick={()=>handleOpenPictureUpload(id, image, imageRef)}>Update<br></br>Image</button></>:
+                                    <button className="btn btn-secondary" style={{width:"100%"}}  onClick={handleMore}>More</button> 
+                                }
+                            </div>
                         </div>
                     </Fragment>
                </Col>

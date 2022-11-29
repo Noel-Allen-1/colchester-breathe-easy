@@ -43,7 +43,6 @@ let {db} = await connectToDatabase();
 let homeCollection = await db.collection('homes')
 let homecontactCollection = await db.collection('homecontacts')
   const homeArray = await homeCollection.find().toArray()
-  console.log(homeArray);
   const homecontactArray = await homecontactCollection.find().toArray()
   return {
     props:{

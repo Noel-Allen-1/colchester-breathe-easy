@@ -1283,6 +1283,12 @@ span {
     width: 100%;
     padding-top: 56.25%;
     border: 5px solid rgb(149, 196, 247);
+    .image {
+      object-fit: contain;
+      position: relative !important;
+      height: 100% !important;
+      width: 100%!important;
+    }
    
   }
 
@@ -1294,4 +1300,51 @@ iframe {
   right: 0;
   width: 100%;
   height: 100%;
+}
+
+.modal{
+  height: 95%;
+  .modal-dialog{
+    height: 100%!important;
+    .modal-content{
+      height: 90%;
+      .modal-body{
+        height: 50%;
+        .row{
+          height: 100%;
+          .col{
+            height: 100%;
+            div{
+              height: 50%;
+              main{
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+/************* Graphics****************/
+
+.circle {
+  display: block;
+  border: 2px solid rgba(0, 135,255, 1);
+  background-color: rgba(0, 135, 255, 0.8);
+  height: 130px;
+  border-radius:50%;
+  width: 130px;
+  margin: auto;
+  .squareIsideCircle{
+    background-color: rgba(255,255,255,0.8);
+    display: block;
+    margin: 8px 20px 0 20px;
+    padding: 9px;
+    border: 2px solid rgba(0, 135,255, 1);
+    border-radius:10px;
+
+  }
 }

@@ -1,8 +1,10 @@
 import React, { Component, useState, useEffect  } from "react";
 import Link from 'next/link'
 import { withRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import classNames from 'classnames'
 const parse = require('html-react-parser');
+import { userService } from '../../services';
 import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap'
 import {
   UncontrolledDropdown,
@@ -10,12 +12,9 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-
 import {getCurrentUser, getRole} from "../api/auth";
 
-
 export const NavLink = (props) => {
-
   let className = classNames({
     "nav-link": true,
     "is-active": props.pathname
@@ -23,6 +22,7 @@ export const NavLink = (props) => {
   return <Link href={props.path}><a className={className}>{props.label}</a></Link>
 
 }
+
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -46,7 +46,10 @@ function useWindowSize() {
 }
 
 
+const handelLogout = () =>{
+  userService.logout();
 
+}
 function NavBarNew({ Component, pageProps }){
 
   const size = useWindowSize();
@@ -206,7 +209,8 @@ function updateDimensions(){
                   {getCurrentUser() && (
                     <React.Fragment>
                       <DropdownItem>
-                        <NavLink path="/logout" onClick={hideNav} label="Logout" />
+                        {/* <NavLink path="/logout" onClick={hideNav} label="Logout" /> */}
+                        <div onClick={handelLogout}>Log out</div>
                       </DropdownItem>
                       <DropdownItem>
                         <NavLink path="/download" onClick={hideNav} label="Membership Form" />

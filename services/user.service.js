@@ -33,7 +33,7 @@ function login(username, password) {
 function logout() {
     localStorage.removeItem('user');
     userSubject.next(null);
-    Router.push('/login');
+    Router.push('/account/login');
 }
 
 function getAll() {

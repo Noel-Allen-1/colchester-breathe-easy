@@ -15,7 +15,7 @@ const parse = require('html-react-parser');
 
 
 
-function ExerciseItem(props) {
+function ExerciseIntroItem(props) {
     const { id, heading, description, image, imageID, video, videoType, pdf } = props
     const [openModal, setOpenModal] = useState("");
     const [openModalB, setOpenModalB] = useState("");
@@ -275,7 +275,7 @@ function ExerciseItem(props) {
     
     
     return (
-        <Col lg={6}>
+        <Col lg={12}>
             <style>
                 {
                     `
@@ -354,17 +354,17 @@ function ExerciseItem(props) {
                             `
                         }
                     </style>
+                        <Col>
                         <h5 style={{background: "rgba(0, 135, 255, 0.8)", color: "rgb(255, 255, 255)", padding: "0.2rem 0.8rem"}}>{header.indexOf('href') >-1 ? parse(heading.replace(/<[^>]*>?/gm, '')) : parse(heading.replace(/<[^>]*>?/gm, ''))}</h5>
-                        <div className="innerContainer">
-                            {pdf ?              
-                            <div style={{position:"absolute", top:"50%", width:"95%", textAlign:"center"}} onClick={()=>openPDf(id)}>Open pdf
-                            <div className="circle">
-                                <div className="squareIsideCircle">
-                                    <Image src={"/assets/images/acrobat.png"} alt={"Acrobat logo"} tile={"Acrobat logo"}  layout="responsive" width={20} height={20} className={'image'} />
-                                    PDF
-                                </div>
-                            </div>  
-                            </div>:""}
+                        <p>
+                        
+                        {description.indexOf('href') >-1 ? parse(description.replace(/<[^>]*>?/gm, '')) : parse(description.replace(/<[^>]*>?/gm, ''))}
+                        
+                    </p>
+                        </Col>
+                        <Col>
+                         <div className="innerContainer">
+                            {pdf ? <div style={{position:"absolute", top:"50%", width:"95%", textAlign:"center"}} onClick={()=>openPDf(id)}>Open pdf</div>:""}
                             {video !=="" ? 
 
                                 videoType === "youtube" ? 
@@ -382,9 +382,9 @@ function ExerciseItem(props) {
                                 image ? <Image src={image} alt={heading} tile={heading}  layout="fill" className={'image'} />:""
                             }
                         </div>
-                    <p>
-                        {description.indexOf('href') >-1 ? parse(description.replace(/<[^>]*>?/gm, '')) : parse(description.replace(/<[^>]*>?/gm, ''))}
-                    </p>
+                        </Col>
+                       
+                    
 
 
                     {auth ?    !isdone?<button onClick={()=>handleOpenPdfUpload(id)}>Edit/Add pdf</button> : <button onClick={handleSavePDF}>Save PDF</button> :""}
@@ -409,4 +409,4 @@ function ExerciseItem(props) {
         </Col>
     )
 }
-export default ExerciseItem
+export default ExerciseIntroItem

@@ -48,10 +48,10 @@ export default function Uploader( {onImage, onClose}){
       }
 
     return(
-        <main className="container-fluid">
+        <main className="container-fluid" style={{height:"100%"}}>
             <Row  style={{ marginTop:"1rem"}}>
                 <Col></Col>
-                <Col md="6">
+                <Col md="12">
                 <div className="flex justify-center h-screen items-center">
                     <h3 style={{width:"100%", textAlign:"center"}}>Colchester Breathe Easy Image Upload</h3>
                 </div>
@@ -60,26 +60,30 @@ export default function Uploader( {onImage, onClose}){
             </Row>
             <Row>
                 <Col></Col>
-                <Col md="6">
-                <div className="flex justify-center h-screen items-center" id="uploadimg">
+                <Col md="12">
+                <div className="flex justify-center h-screen items-center" style={{height:"90%"}} id="uploadimg">
                     {uploadState !== UploadState.UPLOADED ? (
-                    <div className="w-32" >
+                    <div className="" >
                         <label
                         htmlFor="image"
                         style={{width:"100%"}}
                         className="block bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-center"
                         >
-                        <table style={{width:"100%"}}>
+                        
+                        
+                        <table style={{width:"100%", border:"1px solid"}}>
                             <tbody>
                             <tr>
                                 <td>
-                                ..{JSON.stringify(data)}..
+                                ..{JSON.stringify(data)}
                                 {uploadState === UploadState.UPLOADING ? (
                                 <span>Uploading...</span>
                                 ) : (
                                 <span>Upload</span>
                                 )}
                                 </td>
+                            </tr>
+                            <tr>    
                                 <td>
                                 <input
                                     type="file"
@@ -102,6 +106,7 @@ export default function Uploader( {onImage, onClose}){
                         </span>
                         {/* <img className="w-full" src={imgUrl} alt="Uploaded image" /> */}
                         <Image  className="w-full" src={imgUrl} alt="Uploaded image" title="Uploaded image" width="200" height={200}/>
+                        <button style={{width:"100%", display:"block"}} onClick={handleImg}>Save</button>
                     </div>
                     )}
                 </div>
