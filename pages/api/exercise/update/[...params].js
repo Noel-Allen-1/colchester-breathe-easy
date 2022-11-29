@@ -9,7 +9,8 @@ async function handler(req, resp){
             heading: data.heading,
             description: data.description,
             image: data.image,
-            imageID:data.imageID
+            imageID:data.imageID,
+            pdf:data.pdf
         } 
       };
     const client = await MongoClient.connect("mongodb+srv://madmax:ug4ArmxSIovAwRlS@cluster0.q5kds.mongodb.net/heroku_02d2h7l5?retryWrites=true&w=majority")

@@ -20,6 +20,10 @@ h4 {
   width: 100%;
   background-color: $siteBlue;
 }
+a{
+  inline-size: 150px;
+    overflow-wrap: break-word;
+}
 .submitBlock {
 }
 .resp-message {
@@ -542,6 +546,7 @@ nav {
 .event-item {
   margin-bottom: 1rem;
 }
+
 .committee-pan,
 .member-pan {
   display: inline-grid;

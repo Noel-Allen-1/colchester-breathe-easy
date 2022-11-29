@@ -224,7 +224,7 @@ function SubSingingItem(props) {
     return (
         
         <>
-        <Col lg={6} className="">
+        <Col lg={6} className="" style={{backgroundColor:"rgba(255,255,255,0.6)"}}>
                 <Modal isOpen={openModalC===id}>
                     <ModalHeader onClick={handleCloseFormC}>X</ModalHeader>
                         <ModalBody>
@@ -261,23 +261,10 @@ function SubSingingItem(props) {
                     
                     
                 </Modal>
-            <Container className="container-fluid">
+            <Container className="container-fluid" style={{backgroundColor:"rgba(255,255,255,0.6)", paddingBottom:"1rem!important"}}>
                 <Row className="home-block  justify-content-around">
-                    <Col lg="12" className="exercsie-main-head" style={{ background: "rgba(13, 75, 199, 0.8)", color:"rgba(255,255,255,1)"}}>
-                        <style>
-                            {
-                                `
-                               a{
-                                color: rgba(255,255,255,1);
-                                text-decoration:none;
-                                }
-                                a:hover{
-                                    color:rgba(255,255,255,0.8);
-                                }
-                                `
-                            }
-                        </style>
-                        {parse(heading)}
+                    <Col lg="12" className="exercsie-main-head">
+                        <div style={{ background: "rgba(0,135,255,0.8)", color:"rgba(255,255,255,1)", padding:"0.2rem 0.8rem 0.2rem 0.8rem"}}><style>{`p a{color:rgba(255,255,255,1)}`}</style>{parse(heading)}</div>
                         <button className="btn btn-primary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button>
                     </Col>
                 </Row>

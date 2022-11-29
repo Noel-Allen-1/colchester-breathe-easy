@@ -237,9 +237,9 @@ function NewsItem(props) {
     
     
     return (
-        
-        <>
-        <Col lg={6} className="">
+        <Col lg={6}>
+            <Container>
+                <Row style={{ backgroundColor:"rgba(255,255,255,0.8)"}}>
                 <Modal isOpen={openModalC===id}>
                     <ModalHeader onClick={handleCloseFormC}>X</ModalHeader>
                         <ModalBody>
@@ -273,20 +273,15 @@ function NewsItem(props) {
                         <ModalFooter onClick={handleCloseForm}>X</ModalFooter>
 
                     </ModalBody>
-                    
-                    
                 </Modal>
-            <Container className="container-fluid">
-                <Row className="home-block  justify-content-around">
-                    <Col>
-                        <h5>{header.indexOf('href') >-1 ? parse(heading) : parse(heading.replace(/<[^>]*>?/gm, ''))}</h5>
-                        <p>{description.indexOf('href') >-1 ? parse(description) : parse(description.replace(/<[^>]*>?/gm, ''))}</p>
-                        {/* <div className={'image-container'}><Image src={image} alt={heading} title={heading} layout="fill" className={'image'} /></div> */}
-                    </Col>
+            
+                    <h5 style={{background: "rgba(0, 135, 255, 0.8)", color: "rgb(255, 255, 255)", padding: "0.2rem 0.8rem"}}>{header.indexOf('href') >-1 ? parse(heading.replace(/<[^>]*>?/gm, '')) : parse(heading.replace(/<[^>]*>?/gm, ''))}</h5>
+                    <p>{description.indexOf('href') >-1 ? parse(description.replace(/<[^>]*>?/gm, '')) : parse(description.replace(/<[^>]*>?/gm, ''))}</p>
+                
+            
                 </Row>
             </Container>
         </Col>
-        </>
     )
 }
 export default NewsItem

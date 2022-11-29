@@ -176,7 +176,7 @@ function AboutItem(props) {
                 <Col xxs="12" >
                         
                    <Fragment>
-                        <div className="home-block event-pan">
+                        <div className="home-block event-pan" style={{textAlign:"center"}}>
                            <Modal isOpen={openModal===id} >
                                 <ModalBody>
                                     <ModalHeader onClick={handleCloseForm}>X</ModalHeader>

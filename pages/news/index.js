@@ -8,37 +8,31 @@ const News = (props) => {
     console.log(props);
   return (
     
-      
-      <main className="container-fluid"  id="ldin">
-        
-        <Row className="home-panel">
-        <div className="col-lg-2 col-md-12"></div>
-        <div className="col-lg-8 col-md-12">
+    <main className="container-fluid"  id="ldin">
+    <Row className="home-panel">
+      <Col lg="12">
         <LogoBanner homecontact={props.homecontacts}/>
-        
+      </Col>
+      <Col>
+      <Container>
+        <Row className="home-block">
           
-          <Row className="home-block">
-            {
-              props.news.map((news) => (
-                // <div key={news.id} className="px-5 py-5 border-b-2 border-black-200">
-                <NewsItem
-                  key={news.id}
-                  id = {news.id}
-                  heading={news.heading}
-                  description={news.description}
-                  image={news.image}
-                  imageID={news.imageID ? news.imageID : ""}
-                  />
-              //  </div>
-              )
-              )
-            }
-            </Row>
-            
-           
-
-          </div>
-          <div className="col-lg-2 col-md-12"></div>
+              {
+                props.news.map((news) => (
+                    <NewsItem
+                      key={news.id}
+                      id = {news.id}
+                      heading={news.heading}
+                      description={news.description}
+                      image={news.image}
+                      imageID={news.imageID ? news.imageID : ""}
+                      />
+                  )
+                )
+              } 
+             </Row>
+            </Container>
+            </Col>
         </Row>
       </main>
   )

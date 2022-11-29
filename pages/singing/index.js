@@ -9,61 +9,48 @@ const Singing = (props) => {
   return (
     
       
-      <main className="container-fluid"  id="ldin">
-        
-        <Row className="home-panel">
-        <div className="col-lg-2 col-md-12"></div>
-        <div className="col-lg-8 col-md-12">
+    <main className="container-fluid"  id="ldin">
+    <Row className="home-panel">
+      <Col lg="12">
         <LogoBanner homecontact={props.homecontacts}/>
-        
-          
-          <Row className="home-block">
-            {
-              props.singing.map((singing) => (
-                // <div key={singing.id} className="px-5 py-5 border-b-2 border-black-200">
-                <SingingItem
-                  key={singing.id}
-                  id = {singing.id}
-                  heading={singing.heading}
-                  description={singing.description}
-                  image={singing.image}
-                  imageID={singing.imageID ? singing.imageID : ""}
-                  />
-              //  </div>
-              )
-              )
-            }
-            </Row>
-            <Row className="home-block">
-              <Col lg="2" sm="12"></Col>
-              <Col lg="8" sm="12">
-                <Container>
-                <Row className="home-block">
-                  {
-                    props.subsinging.map((singing) => (
-                      // <div key={singing.id} className="px-5 py-5 border-b-2 border-black-200">
-                      <SubSingingItem
-                        key={singing.id}
-                        id = {singing.id}
-                        heading={singing.heading}
-                        description={singing.description}
-                        image={singing.image}
-                        imageID={singing.imageID ? singing.imageID : ""}
-                        video={singing.video ? singing.video : ""}
-                        />
-                    //  </div>
-                    )
-                    )
-                  }
+      </Col>
+      <Col>
+      <Container>
+        <Row className="home-block">
+                {
+                  props.singing.map((singing) => (
+                    // <div key={singing.id} className="px-5 py-5 border-b-2 border-black-200">
+                    <SingingItem
+                      key={singing.id}
+                      id = {singing.id}
+                      heading={singing.heading}
+                      description={singing.description}
+                      image={singing.image}
+                      imageID={singing.imageID ? singing.imageID : ""}
+                      />
+                  //  </div>
+                  )
+                  )
+                }
+                {
+                  props.subsinging.map((singing) => (
+                    // <div key={singing.id} className="px-5 py-5 border-b-2 border-black-200">
+                    <SubSingingItem
+                      key={singing.id}
+                      id = {singing.id}
+                      heading={singing.heading}
+                      description={singing.description}
+                      image={singing.image}
+                      imageID={singing.imageID ? singing.imageID : ""}
+                      video={singing.video ? singing.video : ""}
+                      />
+                  //  </div>
+                  )
+                  )
+                }
               </Row>
-              </Container>
+            </Container>
             </Col>
-            <Col lg="2" sm="12"></Col>
-          </Row>
-           
-
-          </div>
-          <div className="col-lg-2 col-md-12"></div>
         </Row>
       </main>
   )

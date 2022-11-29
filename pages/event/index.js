@@ -7,14 +7,14 @@ const Event = (props) => {
   return (
    
       
-      <main className="container-fluid"  id="ldin">
-        <Row className="home-panel">
-        <div className="col-lg-2 col-md-12"></div>
-        <div className="col-lg-8 col-md-12">
+    <main className="container-fluid"  id="ldin">
+    <Row className="home-panel">
+      <Col lg="12">
         <LogoBanner homecontact={props.homecontacts}/>
-        
-          
-          <Row className="home-block">
+      </Col>
+      <Col>
+      <Container>
+        <Row className="home-block">
             {
               props.event.map((event) => (
                 // <div key={event.id} className="px-5 py-5 border-b-2 border-black-200">
@@ -30,9 +30,9 @@ const Event = (props) => {
               )
               )
             }
-          </Row>
-          </div>
-          <div className="col-lg-2 col-md-12"></div>
+           </Row>
+            </Container>
+            </Col>
         </Row>
       </main>
   )

@@ -4,43 +4,41 @@ import { Fragment } from 'react'
 
 import ExerciseItem from '../../components/exerciseItem/ExerciseItem'
 import LogoBanner from "../common/logo-banner";
-const Exercise = (props) => {  
-    console.log(props);
+
+const Exercise = (props) => { 
   return (
     
       
       <main className="container-fluid"  id="ldin">
         
         <Row className="home-panel">
-        <div className="col-lg-2 col-md-12"></div>
-        <div className="col-lg-8 col-md-12">
-        <LogoBanner homecontact={props.homecontacts}/>
-        
-          
-          <Row className="home-block">
-            {
-              props.exercise.map((exercise) => (
-                // <div key={exercise.id} className="px-5 py-5 border-b-2 border-black-200">
-                <ExerciseItem
-                  key={exercise.id}
-                  id = {exercise.id}
-                  heading={exercise.heading}
-                  description={exercise.description}
-                  image={exercise.image}
-                  imageID={exercise.imageID ? exercise.imageID : ""}
-                  video = {exercise.video ? exercise.video : ""}
-                  videoType = {exercise.videoType ? exercise.videoType : ""}
-                  />
-              //  </div>
-              )
-              )
-            }
-            </Row>
-            
-           
-
-          </div>
-          <div className="col-lg-2 col-md-12"></div>
+          <Col lg="12">
+            <LogoBanner homecontact={props.homecontacts}/>
+          </Col>
+          <Col>
+            <Container>
+                <Row className="home-block">
+                      {
+                        props.exercise.map((exercise) => (
+                          // <div key={exercise.id} className="px-5 py-5 border-b-2 border-black-200">
+                          <ExerciseItem
+                            key={exercise.id}
+                            id = {exercise.id}
+                            heading={exercise.heading}
+                            description={exercise.description}
+                            image={exercise.image}
+                            imageID={exercise.imageID ? exercise.imageID : ""}
+                            video = {exercise.video ? exercise.video : ""}
+                            videoType = {exercise.videoType ? exercise.videoType : ""}
+                            pdf = {exercise.pdf ? exercise.pdf : ""}
+                            />
+                        //  </div>
+                        )
+                        )
+                      }
+                </Row>
+            </Container>
+          </Col>
         </Row>
       </main>
   )
@@ -61,6 +59,7 @@ let homecontactCollection = await db.collection('homecontacts')
         imageID: exercise.imageID ? exercise.imageID :"",
         video: exercise.video ? exercise.video : "",
         videoType: exercise.videoType ? exercise.videoType : "",
+        pdf: exercise.pdf ? exercise.pdf : "",
         id: exercise._id.toString()
       })),
       homecontacts : homecontactArray.map(hc => ({
