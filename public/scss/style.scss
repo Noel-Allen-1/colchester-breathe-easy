@@ -1291,6 +1291,25 @@ span {
     }
    
   }
+.gallery{
+  .image-container{
+
+    position: relative!important;
+    overflow: hidden;
+    width: 100%;
+    border: 5px solid rgb(149, 196, 247);
+    span{
+    img.image {
+      object-fit: contain;
+      position: relative !important;
+      height: auto !important;
+      width: 100%!important;
+      max-height: 200px!important;
+    }
+  }
+   
+  }
+}
 
 iframe {
   position: absolute;
