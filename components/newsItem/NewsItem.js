@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import {getCurrentUser, getRole} from "/pages/api/auth"
 import { Container, Row, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Image from "next/image"
+import Link from "next/link";
 import YouTube from "react-youtube";
 import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
@@ -14,7 +15,7 @@ const parse = require('html-react-parser');
 
 
 function NewsItem(props) {
-    const { id, heading, description, image, imageID, video } = props
+    const { id, heading, description, image, imageID, video, external } = props
     const [openModal, setOpenModal] = useState("");
     const [openModalB, setOpenModalB] = useState("");
     const [openModalC, setOpenModalC] = useState("");
@@ -23,8 +24,10 @@ function NewsItem(props) {
     const [descrip, setDescrip]= useState(description);
     const [imagett, setImagett] = useState(image);
     const [image1, setImage] = useState(image);
+    const [external1, setExternal] = useState(external);
     const [vide, setVide]= useState(video);
     const [nv, setNv] = useState(header);
+    const [openExternal, setOpenExternal] = useState(false)
     const router = useRouter();
     const auth = getCurrentUser() && getRole();
     //delete news:
@@ -42,6 +45,11 @@ function NewsItem(props) {
     //   }
     // };
 
+
+  
+    const openExternalModal = () =>{
+        setOpenExternal(!openExternal);
+    }
 
     const handleOpenForm = (id, nv, refin) => {
         setNv(nv)
@@ -93,8 +101,8 @@ function NewsItem(props) {
             description: descrip,
             image: image1 ? image1 : image,
             imageID: imageID,
-            video: video
-
+            video: video,
+            external: external1
         }
         
         const resp = await fetch(`api/news/update/${id}`, {
@@ -117,6 +125,9 @@ function NewsItem(props) {
             case "description":
                 setDescrip(value);
             break;   
+            case "external":
+                setExternal(value);
+            break;    
         }
     }
 
@@ -274,8 +285,34 @@ function NewsItem(props) {
 
                     </ModalBody>
                 </Modal>
+                <Modal isOpen={openExternal}>
+                    <ModalHeader>X</ModalHeader>
+                    <ModalBody>
+                        <div>
+                            <label>Add extrnal page URL</label><br></br>
+                            <input name="external" id="external" value={external1} onChange={handleChange} style={{border:"1px solid rgba(0,0,0,0.7)", width:"100%"}} />
+                        </div>
+                    </ModalBody>
+                    <ModalFooter><button onClick={handleSave}>Save</button> X</ModalFooter>
+                </Modal>
             
                     <h5 style={{background: "rgba(0, 135, 255, 0.8)", color: "rgb(255, 255, 255)", padding: "0.2rem 0.8rem"}}>{header.indexOf('href') >-1 ? parse(heading.replace(/<[^>]*>?/gm, '')) : parse(heading.replace(/<[^>]*>?/gm, ''))}</h5>
+                    {external ? <><div className="embed-responsive embed-responsive-16by9"><iframe src={external} className="embed-responsive-item" style={{
+                            position: "relative",
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            width: "100%",
+                            height: "100%",
+                            minHeight: "500px"
+                    }} /> </div>
+                    {auth ? <button onClick={openExternalModal}>Edit/Add external page</button> : 
+                    <Link href={external} target="_blank" style={{float:"right!important"}} passHref><a target="_blank" className="btn btn-primary" >Open page</a></Link>
+                    }
+                    
+                    <br></br></>:""}
+                    {image ? <div className={'image-container'}><Image src={image}  className={'image'} layout="fill" alt={heading} title={heading}  /></div> :""}
                     <p>{description.indexOf('href') >-1 ? parse(description.replace(/<[^>]*>?/gm, '')) : parse(description.replace(/<[^>]*>?/gm, ''))}</p>
                 
             

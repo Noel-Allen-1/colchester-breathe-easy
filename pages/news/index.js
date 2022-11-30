@@ -26,6 +26,7 @@ const News = (props) => {
                       description={news.description}
                       image={news.image}
                       imageID={news.imageID ? news.imageID : ""}
+                      external={news.external? news.external:""}
                       />
                   )
                 )
@@ -51,6 +52,7 @@ let homecontactCollection = await db.collection('homecontacts')
         description: news.description?news.description:"",
         image: news.image ? news.image: "",
         imageID: news.imageID ? news.imageID :"",
+        external: news.external ? news.external :"",
         id: news._id.toString()
       })),
       homecontacts : homecontactArray.map(hc => ({
