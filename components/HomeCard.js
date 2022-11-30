@@ -47,7 +47,7 @@ const publishPost = async (id) =>{
     <Col className='col-12 bg-tint'>
       <h2>{home.heading}</h2>
     </Col>
-    <Col className='bg-tint' xs={12} md={6}><p>{parse(home.description)}</p></Col>
+    <Col className='bg-tint' xs={12} md={6}>{parse(home.description)}</Col>
     <Col className='bg-tint' xs={12} md={6}>
         {/* <Image src={home.image} alt="" title="" width="900" height="600" /> */}
         <div className={'image-container'}>

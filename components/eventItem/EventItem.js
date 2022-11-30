@@ -170,7 +170,6 @@ function AboutItem(props) {
 
         const id = ref.current.id;
         const target = ref.current.getContent();
-        alert(target);
         if(ref === headingRef){
             alert("heading");
         }else{

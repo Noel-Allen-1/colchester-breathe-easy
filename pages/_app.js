@@ -38,7 +38,8 @@ function MyApp({ Component, pageProps }) {
 //       setAuthorized(true);
 //   }
 // }
-  return (<div id="root">
+  return (
+      <div id="root">
           <div className="bubble x1"></div>
           <div className="bubble x2"></div>
           <div className="bubble x3"></div>
