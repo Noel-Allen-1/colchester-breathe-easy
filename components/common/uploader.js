@@ -18,9 +18,9 @@ export default function Uploader( {onImage, onClose}){
     const [ni, setNi] = useState("");
     async function handleFormData(e) {
         
-        setUploadState(UploadState.UPLOADING);
+     setUploadState(UploadState.UPLOADING);
         const file = e.target.files[0];
-        //console.log(file);
+        console.log(file);
 
         const formData = new FormData();
         formData.append("file", file);
@@ -33,14 +33,19 @@ export default function Uploader( {onImage, onClose}){
         console.log(data.secure_url);
         setImgUrl(data.secure_url);
         setUploadState(UploadState.UPLOADED);
+        await setNi(data.secure_url);
+        await onClose(data.secure_url);
+        await onImage(data.secure_url);
       }
       const handleImg = async () => {
+    
         //const element = document.getElementById("uploadimg");
        //const nimg = element.getElementsByTagName("img");
-       const imgname =  decodeURIComponent(document.querySelectorAll('#uploadimg img')[0].src);
+      // const imgname =  decodeURIComponent(document.querySelectorAll('#uploadimg img')[0].src);
+    
        await setNi(data.secure_url);
-       onClose(data.secure_url);
-       onImage(data.secure_url);
+       await onClose(data.secure_url);
+       await onImage(data.secure_url);
       }
 
      const handleClose = () =>{
@@ -50,20 +55,18 @@ export default function Uploader( {onImage, onClose}){
     return(
         <main className="container-fluid" style={{height:"100%"}}>
             <Row  style={{ marginTop:"1rem"}}>
-                <Col></Col>
-                <Col md="12">
-                <div className="flex justify-center h-screen items-center">
+                
+                <Col lg="12">
+                <div className="flex">
                     <h3 style={{width:"100%", textAlign:"center"}}>Colchester Breathe Easy Image Upload</h3>
                 </div>
                 </Col>
-                <Col></Col>
             </Row>
             <Row>
-                <Col></Col>
                 <Col md="12">
-                <div className="flex justify-center h-screen items-center" style={{height:"90%"}} id="uploadimg">
+                <div className="flex" style={{height:"90%"}} id="uploadimg">
                     {uploadState !== UploadState.UPLOADED ? (
-                    <div className="" >
+                    <div className="" style={{width:"100%"}} >
                         <label
                         htmlFor="image"
                         style={{width:"100%"}}
@@ -84,9 +87,20 @@ export default function Uploader( {onImage, onClose}){
                                 </td>
                             </tr>
                             <tr>    
-                                <td>
+                                <td>...
+
+                                {/* 
+                                <input
+                                    onChange={handleFormData}
+                                    accept=".jpg, .png, .jpeg"
+                                    className="fileInput mb-2"
+                                    type="file">
+                                </input> */}
+
+
                                 <input
                                     type="file"
+                                    accept=".jpg, .png, .jpeg"
                                     name="file"
                                     id="image"
                                     onChange={handleFormData}
@@ -100,23 +114,22 @@ export default function Uploader( {onImage, onClose}){
                         </label>
                     </div>
                     ) : (
-                    <div className="w-96 text-green-500 ">
-                        <span className="block py-2 px-3 text-green-500 text-center">
+                    <div className="">
+                        <span className="block">
                         Uploaded!
                         </span>
                         {/* <img className="w-full" src={imgUrl} alt="Uploaded image" /> */}
-                        <Image  className="w-full" src={imgUrl} alt="Uploaded image" title="Uploaded image" width="200" height={200}/>
-                        <button style={{width:"100%", display:"block"}} onClick={handleImg}>Save</button>
+                        <Image  className="w-full" src={imgUrl} alt="Uploaded image" title="Uploaded image" width="200" height={200} onChange={ handleImg }/>
+                        {/* <button style={{width:"100%", display:"block"}} onClick={handleImg}>Save</button> */}
                     </div>
                     )}
                 </div>
                 </Col>
-                <Col></Col>
             </Row>
             <Row style={{ marginBottom:"1rem", visibility:JSON.stringify(data) ?"visible":"hidden"}}>
-                <Col></Col>
-                <Col  md="6"><button style={{width:"100%", display:"block"}} onClick={handleImg}>Save</button></Col>
-                <Col></Col>
+                
+                {/* <Col  md="6"><button style={{width:"100%", display:"block"}} onClick={handleImg}>Save</button></Col> */}
+                
             </Row>
             </main>
         ) ;
