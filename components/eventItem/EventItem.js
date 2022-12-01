@@ -12,7 +12,7 @@ import check from "/images/check.png";
 import uncheck from "/images/uncheck.jpg";
 const parse = require('html-react-parser');
 
-function AboutItem(props) {
+function EventItem(props) {
     const { id, heading, description, image, imageID, video,  pdf } = props
     const [show, setShow] = useState(false);
     const [header, setHeader]= useState(heading);
@@ -25,7 +25,7 @@ function AboutItem(props) {
     const [more, setMore] = useState("");
     const router = useRouter();
     const auth = getCurrentUser() && getRole();
-    //delete about:
+    //delete event:
     const headingRef = useRef(heading);
     const bodyRef = useRef(description);
     const imageRef = useRef(image);
@@ -80,28 +80,7 @@ function AboutItem(props) {
     }
     const handleMore = async(m) => {
         setMore(id);
-        // const data = {   
-        //     heading: header,
-        //     description: descrip,
-        
-        // }
-        // console.log(data);
-        // router.push({
-        //     pathname:`/event/EventUpdateForm/${m}`,
-        //     method: "POST"
-        // })
-        // router.push({
-        //     pathname:`/event/EventUpdateForm/${m}`,
-        //     query: JSON.stringify(data)
-        // })
-        //router.push(`../aboutItem/EventUpdateForm/${m}`);
-        // const resp = await fetch(`aboutItem/EventUpdateForm/${id}`, {
-        //     method: "POST",
-        //     body: JSON.stringify(data)
-        // })
-        // .then(res => console.log("SUCCESS:: " + res.json()))
-        // .catch(e => console.log("ERROR " + e))
-        // router.push("/");
+       
     }
 
     const handleSave = async ()=>{
@@ -123,7 +102,7 @@ function AboutItem(props) {
             description: descripttt,
             done: done
         }
-        const resp = await fetch(`api/about/update/${id}`, {
+        const resp = await fetch(`api/event/update/${id}`, {
             method: "PUT",
             body: JSON.stringify(data)
         })
@@ -147,8 +126,8 @@ function AboutItem(props) {
     }
 
 
-    const deleteAbout = async (aboutId) =>{
-        const resp = await fetch(`/api/about/about/${aboutId}`, {
+    const deleteEvent = async (eventId) =>{
+        const resp = await fetch(`/api/events/delete/${eventId}`, {
             method: 'DELETE'
           })
           .then(res => console.log("SUCCESS:: "+ res.json()))
@@ -156,15 +135,15 @@ function AboutItem(props) {
           
           router.push("/")
     }
-    //togle about:
-    const togleDone = async (aboutId, done) =>{
+    //togle event:
+    const togleDone = async (eventId, done) =>{
         
-        const resp = await fetch(`/api/about/about/${aboutId}/${done}`, {
+        const resp = await fetch(`/api/event/event/${eventId}/${done}`, {
           method: 'GET'
         })
         .then(res => console.log("SUCCESS:: "+ res.json()))
         .catch(e => console.log("ERROR:" + e))
-        router.push("/about")
+        router.push("/event")
     }
     const update = () => {
 
@@ -262,14 +241,17 @@ function AboutItem(props) {
                                 <ModalFooter><FontAwesomeIcon icon={faCircleXmark} style={{float:"right"}} onClick={handleCloseModal}/></ModalFooter>
 
                             </Modal>
-                            <div >{parse(heading)}<br></br>
+                            <div><div style={{width:"100%", backgroundColor:"rgba(0, 135, 255, 0.8)", paddingBottom:"10px", paddingTop:"10px", color:"rgba(255,255,255,1)"}}>{parse(heading)}</div><br></br>
                             <button className="btn btn-secondary" style={{display: auth ? "block":"none", width:"100%"}} onClick={()=>handleOpenForm(id, header, headingRef)}>Edit heading</button></div>
                             {image && <div className={'image-container'}><Image src={image} alt={heading} title={heading} layout="fill" className={'image'} /></div>}
                            
                             
-                            <div>{parse(description)}<br></br>
+                            <div><div style={{width:"100%", backgroundColor:"rgba(0, 135, 255, 0.8)", paddingBottom:"10px", paddingTop:"10px", color:"rgba(255,255,255,1)"}}>{parse(description)}</div><br></br>
                                 { auth ?
-                                    <><button className="btn btn-secondary" style={{width:"48%"}}  onClick={()=>handleOpenForm(id, description, bodyRef)}>Edit<br></br>Text</button> <button className="btn btn-secondary" style={{width:"48%"}} onClick={()=>handleOpenPictureUpload(id, image, imageRef)}>Update<br></br>Image</button></>:
+                                    <><button className="btn btn-secondary" style={{width:"48%"}}  onClick={()=>handleOpenForm(id, description, bodyRef)}>Edit<br></br>Text</button> 
+                                    <button className="btn btn-secondary" style={{width:"48%"}} onClick={()=>handleOpenPictureUpload(id, image, imageRef)}>Update<br></br>Image</button>
+                                    <button className="btn btn-danger"  style={{width:"100%"}} onClick={()=>deleteEvent(id)}>Delete</button>
+                                    </>:
                                     <button className="btn btn-secondary" style={{width:"100%"}}  onClick={handleMore}>More</button> 
                                 }
                             </div>
@@ -281,4 +263,4 @@ function AboutItem(props) {
         </>
     )
 }
-export default AboutItem
+export default EventItem
