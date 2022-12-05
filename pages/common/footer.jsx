@@ -1,5 +1,5 @@
 import React, {BrowserRouter as Router} from "react";
-import { Link } from "react-router-dom";
+import Link  from "next/link";
 import Image from "next/image";
 const Footer = () => {
   return (
@@ -23,9 +23,9 @@ const Footer = () => {
                 width="300"
                 height="188"
               />
-             <a className="btn btn-primary" href="/contactUs">
+             <Link className="btn btn-primary" href="/contactUs">
                 Contact us &amp; where to find us
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@ const Footer = () => {
         <div className="col-md-2 image-pan">
           <div className="row">
             <div className="col-6 col-xs-12 external-links">
-              <a
+              <Link
                 href="https://www.facebook.com/groups/1965859146961536/"
                 target="blank"
                 className="sponsor-block"
@@ -45,7 +45,7 @@ const Footer = () => {
                     width="85"
                     height="85"
                 />
-              </a>
+              </Link>
             </div>
             <div className="col-6 col-xs-12 external-links">
               <a href="/supporters" className="sponsor-block">
