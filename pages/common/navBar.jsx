@@ -119,14 +119,14 @@ function updateDimensions(){
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <li className="nav-item" onClick={hideNav}>
+              {/* <li className="nav-item" onClick={hideNav}>
                 <NavLink
                   activeClassName="navbar__link--active"
                   className="navbar__link col nav-link"
                   path="/meetings"
                   label={<i className="fa fa-calendar fa-3x" aria-hidden="true"></i>}
                 />
-              </li>
+              </li> */}
               <li className="nav-item" onClick={hideNav}>
                 <NavLink path="/event" className="nav-link" label= {parseInt(winw) < 992
                     ? "Events Activities"
