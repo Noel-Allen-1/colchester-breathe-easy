@@ -190,7 +190,7 @@ function updateDimensions(){
                         </NavLink>
                       </DropdownItem>
                       <DropdownItem>
-                        <NavLink path="/download" onClick={hideNav} >
+                        <NavLink path="/download" onClick={hideNav}  label="Registeration Form">
                           Membership Form
                         </NavLink>
                       </DropdownItem>
@@ -200,6 +200,7 @@ function updateDimensions(){
                           className="navbar__link col"
                           path="/contactUs"
                           onClick={hideNav}
+                          label="Contact Us"
                         >
                           Contact
                         </NavLink>
